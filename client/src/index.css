@@ -25,10 +25,7 @@
     width: 100%;
   }
 
-  /* Prevent body from unexpected overflow */
-  body {
-    overflow: hidden;
-  }
+ 
 }
 
 /* Hide scrollbar styles */

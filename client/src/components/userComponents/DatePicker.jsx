@@ -19,11 +19,11 @@ const DatePicker = () => {
         <PopoverTrigger asChild>
           <Button
             variant="outline"
-            className="w-full h-full flex flex-col justify-normal items-start bg-cyan-100"
+            className="w-full h-full flex flex-col justify-normal items-start bg-cyan-50"
           >
-            <h1>Check In</h1>
-            <p>{date ? format(date, "PPP") : <span>Pick a date</span>}</p>
-            <p>SaterDay</p>
+            <h1 className="text-blue-300">Check In</h1>
+            <p>{date ? format(date, "PPP") : <span>5 jan 2024</span>}</p>
+            <p className="font-light text-sm">SaterDay</p>
           </Button>
         </PopoverTrigger>
         <PopoverContent className="w-auto p-0">

@@ -54,7 +54,7 @@ export function ComboboxDemo() {
             variant="outline"
             role="combobox"
             aria-expanded={open}
-            className="w-full h-full flex flex-col justify-normal items-start bg-cyan-100"
+            className="w-full h-full flex flex-col justify-normal items-start bg-cyan-50"
           >
             <h1 className="uppercase text-blue-300 font-semibold">
               City/Hotel/Restorent/Area
