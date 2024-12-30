@@ -1,0 +1,43 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Set up CSS variables */
+@layer base {
+  :root {
+    --radius: 0.5rem;
+  }
+
+  /* Global reset for box-sizing */
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+
+  /* Set default margin and padding to 0 */
+  body, h1, h2, h3, h4, h5, h6, p, ol, ul {
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Ensure full height and width for the viewport */
+  html, body {
+    height: 100%;
+    width: 100%;
+  }
+
+  /* Prevent body from unexpected overflow */
+  body {
+    overflow: hidden;
+  }
+}
+
+/* Hide scrollbar styles */
+.no-scrollbar::-webkit-scrollbar {
+  display: none; /* For Chrome, Safari, and Edge */
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none; /* For Internet Explorer and Edge */
+  scrollbar-width: none; /* For Firefox */
+}
+ 
