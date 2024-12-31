@@ -1,16 +1,14 @@
-
-import AvailabilityForm from "./components/userComponents/AvailabilityForm";
-import Carousel from "./components/userComponents/Carosul";
-import Navbar from "./components/userComponents/Navbar";
+import { Route, Routes } from "react-router-dom";
+import Login from "./pages/UserPages/Auth/LoginPage";
+import HomePage from "./pages/UserPages/HomePage";
 
 function App() {
   return (
     <>
-      <Navbar />
-      <Carousel />
-      <div>
-        <AvailabilityForm />
-      </div>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/login" element={<Login />} />
+      </Routes>
     </>
   );
 }

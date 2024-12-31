@@ -23,12 +23,10 @@
   html, body {
     height: 100%;
     width: 100%;
+    background-color: #EBF0F4;
   }
 
-  /* Prevent body from unexpected overflow */
-  body {
-    overflow: hidden;
-  }
+ 
 }
 
 /* Hide scrollbar styles */

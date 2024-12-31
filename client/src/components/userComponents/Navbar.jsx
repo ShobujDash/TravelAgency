@@ -1,10 +1,14 @@
+import { useAuthContext } from "@/context/AuthContext";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import Logo from "../../assets/image/TrableLogo.png";
+import { Button } from "../ui/button";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 
 const Navbar = () => {
   const [isDropdownOpen, setDropdownOpen] = useState(false);
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { isLoggedIn } = useAuthContext();
 
   return (
     <>
@@ -26,24 +30,30 @@ const Navbar = () => {
 
           <div className="flex items-center md:order-2 space-x-3 rtl:space-x-reverse">
             {/* User Dropdown */}
-            <Popover>
-              <PopoverTrigger asChild>
-                <button
-                  type="button"
-                  className="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
-                  id="user-menu-button"
-                >
-                  <img
-                    className="w-8 h-8 rounded-full"
-                    src="/docs/images/people/profile-picture-3.jpg"
-                    alt="user"
-                  />
-                </button>
-              </PopoverTrigger>
-              <PopoverContent className="w-auto p-0">
-                <h1>Shobuj Das</h1>
-              </PopoverContent>
-            </Popover>
+            {isLoggedIn ? (
+              <Popover>
+                <PopoverTrigger asChild>
+                  <button
+                    type="button"
+                    className="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
+                    id="user-menu-button"
+                  >
+                    <img
+                      className="w-8 h-8 rounded-full"
+                      src="/docs/images/people/profile-picture-3.jpg"
+                      alt="user"
+                    />
+                  </button>
+                </PopoverTrigger>
+                <PopoverContent className="w-auto p-0">
+                  <h1>Shobuj Das</h1>
+                </PopoverContent>
+              </Popover>
+            ) : (
+              <Link to="/login">
+                <Button>Signin</Button>
+              </Link>
+            )}
 
             {/* Dropdown Menu */}
             {isDropdownOpen && (

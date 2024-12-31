@@ -4,7 +4,6 @@ export default {
   content: [
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
-    "node_modules/flowbite-react/**/*.{js,jsx,ts,tsx}",
   ],
   theme: {
     extend: {
@@ -16,5 +15,5 @@ export default {
       colors: {},
     },
   },
-  plugins: [require("tailwindcss-animate"), require("flowbite/plugin")],
+  plugins: [require("tailwindcss-animate")],
 };
