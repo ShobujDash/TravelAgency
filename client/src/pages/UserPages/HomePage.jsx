@@ -6,6 +6,7 @@ import PopularRoom from "@/components/userComponents/PopularRoom";
 import Sponsor from "@/components/userComponents/Sponsor";
 import Discount from "@/components/userComponents/Discount";
 import Footer from "@/components/userComponents/Footer";
+import FooterSlider from "@/components/userComponents/FooterSlider";
 
 const HomePage = () => {
   return (
@@ -18,7 +19,7 @@ const HomePage = () => {
       <PopularRoom />
       <Sponsor />
       <Discount />
-      <Sponsor />
+      <FooterSlider />
       <Footer />
     </>
   );
