@@ -28,9 +28,9 @@ const Sponsor = () => {
   const goToSlide = (index) => setCurrentIndex(index);
 
   return (
-    <div className="relative p-3 sm:p-0 max-w-6xl  mx-auto mb-4">
+    <div className="relative px-4 md:px-0 sm:p-0 max-w-6xl  mx-auto mb-4">
       {/* Slider Wrapper */}
-      <div className="relative overflow-hidden h-32 rounded-lg">
+      <div className="relative overflow-hidden h-32 rounded-lg px-4 md:px-0">
         {destinations.map((item, index) => (
           <div
             key={index}

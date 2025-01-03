@@ -47,8 +47,8 @@ const destinations = [
 
 const PopularRoom = () => {
   return (
-    <section className="py-16">
-      <div className="max-w-6xl mx-auto">
+    <section className="py-16 max-w-6xl mx-auto px-4 md:px-0">
+      <div className="">
         <div className=" sm:max-w-6xl mx-auto flex  items-center gap-1 justify-between mb-8">
           <div className="text-sm sm:text-2xl font-bold text-blue-600 flex gap-2 items-center">
             <span className="hidden sm:block">Popular</span> Destinations
