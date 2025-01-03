@@ -1,4 +1,5 @@
 import React from "react";
+import Banner from "../../assets/image/slider.webp";
 import Banner01 from "../../assets/image/Banner01.jpg";
 import Banner02 from "../../assets/image/Banner02.jpg";
 import Banner03 from "../../assets/image/Banner03.jpeg";
@@ -7,7 +8,15 @@ import Banner05 from "../../assets/image/Banner05.jpeg";
 import Banner06 from "../../assets/image/Banner06.jpeg";
 
 const Carousel = () => {
-  const slides = [Banner01, Banner02, Banner03, Banner04, Banner05, Banner06];
+  const slides = [
+    Banner,
+    Banner01,
+    Banner02,
+    Banner03,
+    Banner04,
+    Banner05,
+    Banner06,
+  ];
   const [currentIndex, setCurrentIndex] = React.useState(0);
 
   const goToPrevious = () => {
@@ -40,7 +49,7 @@ const Carousel = () => {
             <img
               src={slide}
               alt={`Slide ${index + 1}`}
-              className="absolute block w-full h-full object-cover"
+              className="absolute block w-full h-full object-contain"
             />
           </div>
         ))}

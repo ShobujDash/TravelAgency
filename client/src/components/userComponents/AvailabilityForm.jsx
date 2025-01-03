@@ -1,12 +1,15 @@
 import { useState } from "react";
 import DatePicker from "./DatePicker";
 import { ComboboxDemo } from "./SelectItem";
+import { useNavigate } from "react-router-dom";
 
 const AvailabilityForm = () => {
   const [adults, setAdults] = useState(0);
   const [children, setChildren] = useState(0);
   const [rooms, setRooms] = useState(0);
   const [dropdownVisible, setDropdownVisible] = useState(false);
+
+  const navigate = useNavigate();
 
   const toggleDropdown = () => {
     setDropdownVisible(!dropdownVisible);
@@ -34,7 +37,10 @@ const AvailabilityForm = () => {
         </div>
       </div>
       <div className="flex">
-        <button className="px-3 py-2 bg-yellow-300 font-bold text-xl mx-auto cursor-pointer rounded-lg mt-3">
+        <button
+          onClick={() => navigate("/hotel-list")}
+          className="px-3 py-2 bg-yellow-300 font-bold text-xl mx-auto cursor-pointer rounded-lg mt-3"
+        >
           Search
         </button>
       </div>

@@ -10,6 +10,7 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/admin" element={<AdminSidebar />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/hotel-list" element={<Login />} />
       </Routes>
     </>
   );
