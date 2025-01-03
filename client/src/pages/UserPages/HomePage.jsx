@@ -5,6 +5,7 @@ import Offer from "@/components/userComponents/Sponsor";
 import PopularRoom from "@/components/userComponents/PopularRoom";
 import Sponsor from "@/components/userComponents/Sponsor";
 import Discount from "@/components/userComponents/Discount";
+import Footer from "@/components/userComponents/Footer";
 
 const HomePage = () => {
   return (
@@ -16,7 +17,9 @@ const HomePage = () => {
       </div>
       <PopularRoom />
       <Sponsor />
-      {/* <Discount /> */}
+      <Discount />
+      <Sponsor />
+      <Footer />
     </>
   );
 };

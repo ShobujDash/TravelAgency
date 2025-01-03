@@ -51,17 +51,11 @@ const Discount = () => {
       <div className="max-w-6xl mx-auto">
         <div className=" sm:max-w-6xl mx-auto flex  items-center gap-1 justify-between mb-8">
           <div className="text-sm sm:text-2xl font-bold text-blue-600 flex gap-2 items-center">
-            <span className="hidden sm:block">Hot</span> Deals
+            <span className="hidden sm:block">Special</span> Offer
           </div>
           <div className="flex gap-2 justify-between items-center bg-white rounded-lg">
             <p className="px-2 py-1 md:px-4 md:py-2 rounded-l-lg  hover:bg-blue-200 cursor-pointer font-medium text-blue-600 hover:font-semibold">
               All
-            </p>
-            <p className="px-2 py-1 md:px-4 md:py-2 hover:bg-blue-200 cursor-pointer font-medium text-blue-600 hover:font-semibold">
-              Room
-            </p>
-            <p className="px-2 py-1 md:px-4 md:py-2 rounded-r-lg  hover:bg-blue-200 cursor-pointer font-medium text-blue-600 hover:font-semibold">
-              Destination
             </p>
           </div>
         </div>
