@@ -5,9 +5,11 @@ import { app } from "@/utils/firebase";
 import { AiFillGoogleCircle } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
 import { Button } from "./ui/button";
+import { toast } from "react-toastify";
+import instance from "@/utils/axios";
 
 function OAuth() {
-  const { user, setUser } = useAuthContext();
+  const { user, setUser, setRefresher } = useAuthContext();
   const auth = getAuth(app);
   const navigate = useNavigate();
 
@@ -15,23 +17,24 @@ function OAuth() {
     const provider = new GoogleAuthProvider();
     provider.setCustomParameters({ prompt: "select_account" });
     const resultsFromGoogle = await signInWithPopup(auth, provider);
-    // try {
-    //   // const { data } = await instance.post("/api/user/google", {
-    //   //   name: resultsFromGoogle.user.displayName,
-    //   //   email: resultsFromGoogle.user.email,
-    //   //   googlePhotoUrl: resultsFromGoogle.user.photoURL,
-    //   // });
-    //   // if (data?.success) {
-    //   //   toast.success("Login Successfull.");
-    //   //   await getUserProfile();
-    //   //   navigate("/");
-    //   // } else {
-    //   //   toast.error(data?.message);
-    //   // }
-    // } catch (error) {
-    //   toast.error("ত্রুটি। আবার চেষ্টা করুন।");
-    //   console.log(error);
-    // }
+    try {
+      const { data } = await instance.post("/api/user/google", {
+        name: resultsFromGoogle.user.displayName,
+        email: resultsFromGoogle.user.email,
+        googlePhotoUrl: resultsFromGoogle.user.photoURL,
+      });
+      if (data?.success) {
+        toast.success("Login Successfull.");
+        sessionStorage.setItem("login", "1")
+        setUser(data?.user)
+        navigate("/");
+      } else {
+        toast.error(data?.message);
+      }
+    } catch (error) {
+      toast.error("ত্রুটি। আবার চেষ্টা করুন।");
+      console.log(error);
+    }
   };
 
   return (

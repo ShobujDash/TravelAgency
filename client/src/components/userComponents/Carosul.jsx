@@ -49,7 +49,7 @@ const Carousel = () => {
             <img
               src={slide}
               alt={`Slide ${index + 1}`}
-              className="absolute block w-full h-full object-contain"
+              className="absolute block w-full h-full object-fill"
             />
           </div>
         ))}

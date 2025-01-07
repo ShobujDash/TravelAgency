@@ -3,12 +3,12 @@ import React from "react";
 import { FaFacebookF } from "react-icons/fa";
 import { FaYoutube } from "react-icons/fa6";
 import { RiInstagramFill } from "react-icons/ri";
-import Bkash from "../../assets/image/BkashCard.png"
-import Dbbl from "../../assets/image/DBBL.jpeg"
-import Master from "../../assets/image/master.png"
-import Visa from "../../assets/image/visa.png"
-import Rocket from "../../assets/image/Roucket.png"
-import Nogod from "../../assets/image/Nogod.png"
+import Bkash from "../../../assets/image/BkashCard.png"
+import Dbbl from "../../../assets/image/DBBL.jpeg"
+import Master from "../../../assets/image/master.png"
+import Visa from "../../../assets/image/visa.png"
+import Rocket from "../../../assets/image/Roucket.png"
+import Nogod from "../../../assets/image/Nogod.png"
 
 
 
