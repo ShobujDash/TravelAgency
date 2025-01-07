@@ -1,12 +1,20 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
 
 import OAuth from "@/components/OAuth";
+import { Button } from "@/components/ui/button";
+import instance from "@/utils/axios";
+import { Loader2 } from "lucide-react";
 import "./login.css";
+import { toast } from "react-toastify";
+import { useAuthContext } from "@/context/AuthContext";
+import { loginUser, registerUser } from "@/services/AuthApiService";
 
 const Login = () => {
   const navigate = useNavigate();
+  const { setUser, isLoggedIn } = useAuthContext();
+
+
 
   const [formData, setFormData] = useState({
     email: "",
@@ -36,6 +44,22 @@ const Login = () => {
 
     try {
       setBtnLoader(true);
+      const data = await loginUser(formData); // Use the service function here
+      if (data?.success) {
+        toast.success(data?.message);
+         sessionStorage.setItem("login", "1");
+        setUser(data?.user);
+        setBtnLoader(false);
+        setFormData({
+          email: "",
+          password: "",
+          name: "",
+        });
+        navigate("/");
+      } else {
+        toast.error(data?.message);
+        setBtnLoader(false);
+      }
     } catch (loginError) {
       console.error("লগইন ত্রুটি:", loginError);
       toast.error("কিছু ভুল হয়েছে। আবার চেষ্টা করুন।");
@@ -50,6 +74,22 @@ const Login = () => {
 
     try {
       setBtnLoader(true);
+      const data = await registerUser(formData); // Use the service function here
+      if (data?.success) {
+        toast.success(data?.message);
+        sessionStorage.setItem("login","1")
+        setUser(data?.user);
+        setBtnLoader(false);
+        setFormData({
+          email: "",
+          password: "",
+          name: "",
+        });
+        navigate("/");
+      } else {
+        toast.error(data?.message);
+        setBtnLoader(false);
+      }
     } catch (error) {
       toast.error("Something Went Wrong...");
       setBtnLoader(false);
@@ -95,7 +135,14 @@ const Login = () => {
               <a href="">Forgot password?</a>
             </div>
             <button type="submit" className="btn">
-              {btnLoader ? "loding skeleton" : "Login"}
+              {btnLoader ? (
+                <Button disabled>
+                  <Loader2 className="animate-spin" />
+                  Please wait
+                </Button>
+              ) : (
+                "Login"
+              )}
             </button>
 
             <p>or login with social platforms</p>
@@ -150,7 +197,14 @@ const Login = () => {
               <a href="">Forgot password?</a>
             </div>
             <button type="submit" className="btn">
-              {btnLoader ? "Loading Skeleton" : "Register"}
+              {btnLoader ? (
+                <Button disabled>
+                  <Loader2 className="animate-spin" />
+                  Please wait
+                </Button>
+              ) : (
+                "Register"
+              )}
             </button>
             <p>or register with social platforms</p>
             <OAuth />

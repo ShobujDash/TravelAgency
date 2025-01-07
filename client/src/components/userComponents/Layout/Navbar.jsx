@@ -1,36 +1,51 @@
 import { useAuthContext } from "@/context/AuthContext";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import Logo from "../../assets/image/TrableLogo.png";
-import { Button } from "../ui/button";
-import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
+import Logo from "../../../assets/image/TrableLogo.png";
+import { Button } from "../../ui/button";
+import { Popover, PopoverContent, PopoverTrigger } from "../../ui/popover";
+
+import { logout } from "@/services/AuthApiService";
+import { FaHeart, FaSignOutAlt, FaUser } from "react-icons/fa";
+import { IoBookmarks } from "react-icons/io5";
+import { toast } from "react-toastify";
 
 const Navbar = () => {
   const [isDropdownOpen, setDropdownOpen] = useState(false);
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const { isLoggedIn } = useAuthContext();
+  const { user, setUser } = useAuthContext();
+
+  const handleLogout = async () => {
+    const data = await logout();
+    if (data?.success) {
+      toast.success(data?.message);
+      sessionStorage.clear();
+      localStorage.clear();
+      setUser(null);
+    }
+  };
 
   return (
     <>
       <nav className="bg-white border-gray-200 dark:bg-gray-900">
         <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
           {/* Logo */}
-          <a
-            href="/"
+          <Link
+            to="/"
             className="flex items-center space-x-3 rtl:space-x-reverse"
           >
             <img src={Logo} className="h-8" alt="Flowbite Logo" />
             <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
               Travel
-              <span className="text-yellow-300 font-bold text-2xl">With</span>Us
+              <span className="text-yellow-500 font-bold text-3xl">24</span>
             </span>
-          </a>
+          </Link>
 
           {/* User and Mobile Menu Button */}
 
           <div className="flex items-center md:order-2 space-x-3 rtl:space-x-reverse">
             {/* User Dropdown */}
-            {isLoggedIn ? (
+            {user ? (
               <Popover>
                 <PopoverTrigger asChild>
                   <button
@@ -40,69 +55,51 @@ const Navbar = () => {
                   >
                     <img
                       className="w-8 h-8 rounded-full"
-                      src="/docs/images/people/profile-picture-3.jpg"
+                      src={user?.image}
                       alt="user"
                     />
                   </button>
                 </PopoverTrigger>
-                <PopoverContent className="w-auto p-0">
-                  <h1>Shobuj Das</h1>
+                <PopoverContent className="w-44 mr-3 flex flex-col gap-y-2 p-0 mt-4">
+                  <Link
+                    to="/profile"
+                    className="flex gap-3 items-center hover:bg-[#E0E0ED] hover:text-white p-2 cursor-pointer"
+                  >
+                    <FaUser />
+                    <p>Profile</p>
+                  </Link>
+                  <Link
+                    to="/my-booking"
+                    className="flex gap-3 items-center hover:bg-blue-400 hover:text-white p-2 cursor-pointer"
+                  >
+                    <IoBookmarks />
+                    <p>My Booking</p>
+                  </Link>
+                  <Link
+                    to="/my-fevoruite"
+                    className="flex gap-3 items-center hover:bg-blue-400 hover:text-white p-2 cursor-pointer"
+                  >
+                    <FaHeart />
+                    <p>Saved</p>
+                  </Link>
+                  <div
+                    onClick={handleLogout}
+                    className="flex gap-3 items-center hover:bg-blue-400 hover:text-white p-2 cursor-pointer"
+                  >
+                    <FaSignOutAlt />
+                    <p>Sign Out</p>
+                  </div>
                 </PopoverContent>
               </Popover>
             ) : (
               <Link to="/login">
-                <Button>Signin</Button>
+                <Button className="bg-blue-500 hover:bg-blue-900 transition-all duration-200">
+                  Signin
+                </Button>
               </Link>
             )}
 
-            {/* Dropdown Menu */}
-            {isDropdownOpen && (
-              <div className="absolute z-50 right-4 my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600">
-                <div className="px-4 py-3">
-                  <span className="block text-sm text-gray-900 dark:text-white">
-                    Bonnie Green
-                  </span>
-                  <span className="block text-sm text-gray-500 truncate dark:text-gray-400">
-                    name@flowbite.com
-                  </span>
-                </div>
-                <ul className="py-2" aria-labelledby="user-menu-button">
-                  <li>
-                    <a
-                      href="#"
-                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
-                    >
-                      Dashboard
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="#"
-                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
-                    >
-                      Settings
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="#"
-                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
-                    >
-                      Earnings
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="#"
-                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
-                    >
-                      Sign out
-                    </a>
-                  </li>
-                </ul>
-              </div>
-            )}
-
+            
             {/* Mobile Menu Toggle */}
             <button
               type="button"
@@ -138,13 +135,13 @@ const Navbar = () => {
           >
             <ul className="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
               <li>
-                <a
-                  href="#"
+                <Link
+                  to="/"
                   className="block py-2 px-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500"
                   aria-current="page"
                 >
                   Home
-                </a>
+                </Link>
               </li>
               <li>
                 <a
