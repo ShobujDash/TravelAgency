@@ -3,6 +3,10 @@ import footerslide from "../../assets/image/footerslide.jpg";
 import footerslide02 from "../../assets/image/footerSliderAppInstall.png";
 import footerslide03 from "../../assets/image/footerslide03.jpg";
 import footerslide04 from "../../assets/image/footerslide04.png";
+import { MdKeyboardArrowLeft } from "react-icons/md";
+import { MdKeyboardArrowRight } from "react-icons/md";
+
+
 
 const FooterSlider = () => {
   const sliderRef = useRef(null);
@@ -53,13 +57,13 @@ const FooterSlider = () => {
           onClick={scrollLeft}
           className="bg-gray-200 p-2 rounded-full shadow-md hover:bg-gray-300"
         >
-          &#8592;
+          <MdKeyboardArrowLeft />
         </button>
         <button
           onClick={scrollRight}
           className="bg-gray-200 p-2 rounded-full shadow-md hover:bg-gray-300"
         >
-          &#8594;
+          <MdKeyboardArrowRight />
         </button>
       </div>
     </div>
