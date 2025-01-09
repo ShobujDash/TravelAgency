@@ -47,48 +47,52 @@ const destinations = [
 
 const PopularRoom = () => {
   return (
-    <section className="py-16 max-w-6xl mx-auto px-4 md:px-0">
-      <div className="">
-        <div className=" sm:max-w-6xl mx-auto flex  items-center gap-1 justify-between mb-8">
-          <div className="text-sm sm:text-2xl font-bold text-blue-600 flex gap-2 items-center">
+    <section className="py-16 max-w-6xl mx-auto px-4 md:px-6 lg:px-8">
+      {/* <div */}
+        {/* Header Section */}
+        <div className="flex flex-wrap items-center justify-between gap-4 mb-8">
+          <div className="text-sm md:text-lg lg:text-2xl font-bold text-blue-600 flex gap-2 items-center">
             <span className="hidden sm:block">Popular</span> Destinations
           </div>
-          <div className="flex gap-2 justify-between items-center bg-white rounded-lg">
-            <p className="px-2 py-1 md:px-4 md:py-2 rounded-l-lg  hover:bg-blue-200 cursor-pointer font-medium text-blue-600 hover:font-semibold">
+          <div className="flex gap-2 items-center bg-white rounded-lg overflow-hidden">
+            <p className="px-3 py-1 md:px-4 md:py-2 cursor-pointer font-medium text-blue-600 hover:bg-blue-200 hover:font-semibold">
               All
             </p>
-            <p className="px-2 py-1 md:px-4 md:py-2 hover:bg-blue-200 cursor-pointer font-medium text-blue-600 hover:font-semibold">
+            <p className="px-3 py-1 md:px-4 md:py-2 cursor-pointer font-medium text-blue-600 hover:bg-blue-200 hover:font-semibold">
               Room
             </p>
-            <p className="px-2 py-1 md:px-4 md:py-2 rounded-r-lg  hover:bg-blue-200 cursor-pointer font-medium text-blue-600 hover:font-semibold">
+            <p className="px-3 py-1 md:px-4 md:py-2 cursor-pointer font-medium text-blue-600 hover:bg-blue-200 hover:font-semibold">
               Destination
             </p>
           </div>
         </div>
 
+        {/* Carousel Section */}
         <Carousel
           opts={{
             align: "start",
           }}
-          className=" sm:max-w-6xl mx-auto"
+          className="sm:max-w-6xl mx-auto"
         >
           <CarouselContent>
             {destinations.map((destination, index) => (
-              <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
-                <div
-                  key={destination.id}
-                  className="bg-white rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow"
-                >
-                  <div className="relative h-64">
+              <CarouselItem
+                key={index}
+                className="basis-full sm:basis-1/2 lg:basis-1/3 px-2"
+              >
+                <div className="bg-white rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow">
+                  {/* Image Section */}
+                  <div className="relative h-48 sm:h-64 lg:h-72">
                     <img
                       src={destination.image}
                       alt={destination.name}
-                      className="w-full h-full object-cover hover:scale-110 transition-all duration-200"
+                      className="w-full h-full object-cover hover:scale-110 transition-transform duration-200"
                     />
                   </div>
-                  <div className="p-6">
+                  {/* Content Section */}
+                  <div className="p-4 sm:p-6">
                     <div className="flex items-center justify-between mb-4">
-                      <h3 className="text-xl font-semibold flex items-center gap-2">
+                      <h3 className="text-sm md:text-lg lg:text-xl font-semibold flex items-center gap-2">
                         <MapPin size={20} className="text-blue-600" />
                         {destination.name}
                       </h3>
@@ -96,7 +100,7 @@ const PopularRoom = () => {
                         ${destination.price}
                       </span>
                     </div>
-                    <button className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-md">
+                    <button className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-md text-sm lg:text-base">
                       View Details
                     </button>
                   </div>
@@ -107,7 +111,7 @@ const PopularRoom = () => {
           <CarouselPrevious />
           <CarouselNext />
         </Carousel>
-      </div>
+      {/* </div> */}
     </section>
   );
 };
