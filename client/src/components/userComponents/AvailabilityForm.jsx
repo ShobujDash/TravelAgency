@@ -1,7 +1,8 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { MovingBorderButton } from "../MoveingBorderButton";
 import DatePicker from "./DatePicker";
 import { ComboboxDemo } from "./SelectItem";
-import { useNavigate } from "react-router-dom";
 
 const AvailabilityForm = () => {
   const [adults, setAdults] = useState(0);
@@ -39,9 +40,9 @@ const AvailabilityForm = () => {
       <div className="flex">
         <button
           onClick={() => navigate("/hotel-list")}
-          className="px-3 py-2 bg-yellow-300 font-bold text-xl mx-auto cursor-pointer rounded-lg mt-3"
+          className="font-bold text-xl mx-auto cursor-pointer rounded-lg mt-3 "
         >
-          Search
+          <MovingBorderButton>Search</MovingBorderButton>
         </button>
       </div>
     </div>
