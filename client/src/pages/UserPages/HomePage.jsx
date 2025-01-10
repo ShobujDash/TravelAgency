@@ -5,17 +5,17 @@ import FooterSlider from "@/components/userComponents/FooterSlider";
 import MasterLayout from "@/components/userComponents/Layout/MasterLayout";
 import PopularRoom from "@/components/userComponents/PopularRoom";
 import Sponsor from "@/components/userComponents/Sponsor";
+import UserComments from "@/components/userComponents/UserComments";
 
 const HomePage = () => {
   return (
     <MasterLayout>
       <Carousel />
-      <div>
-        <AvailabilityForm />
-      </div>
+      <AvailabilityForm />
       <PopularRoom />
       <Sponsor />
       <Discount />
+      <UserComments />
       <FooterSlider />
     </MasterLayout>
   );

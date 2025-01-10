@@ -9,7 +9,7 @@ const ProfilePage = () => {
 
   return (
     <MasterLayout>
-      <div className="flex flex-col md:flex-row min-h-screen bg-gradient-to-r from-[#19173B] via-[#0A2339] to-[#0C1529]">
+      <div className="flex flex-col md:flex-row min-h-screen bg-gradient-to-r from-[#0C1529] via-[#0A2339] to-[#19173B]">
         {/* Sidebar */}
         <aside className=" hidden sm:block w-full md:w-64 bg-white shadow-md rounded-r-lg bg-gradient-to-t from-[#19173B] via-[#0A2339] to-[#0C1529]">
           <nav className="flex flex-col gap-4 p-6">
@@ -57,7 +57,7 @@ const ProfilePage = () => {
               <p className="text-center text-sm text-blue-500">{user?.email}</p>
               <button className="w-full bg-purple-500 text-white py-2 rounded-lg mt-4 hover:bg-purple-600 shadow-md">
                 <div className=" flex items-center justify-center gap-2">
-                  <span >
+                  <span>
                     <GrEdit />
                   </span>
                   <span>Edit Profile</span>

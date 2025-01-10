@@ -16,7 +16,7 @@ import Nogod from "../../../assets/image/Nogod.png"
 
 export const Footer = () => {
   return (
-    <footer className="bg-blue-900 text-white py-10">
+    <footer className="bg-transparent text-white py-10">
       <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-8">
         {/* Discover Section */}
         <div>
@@ -114,7 +114,7 @@ export const Footer = () => {
       </div>
 
       <div className="mt-10 text-center text-sm border-t border-white pt-4">
-        &copy; Copyright TravelWithUs Ltd.
+        &copy; Copyright Travel<span className="text-yellow-600">24</span> Ltd.
       </div>
     </footer>
   );

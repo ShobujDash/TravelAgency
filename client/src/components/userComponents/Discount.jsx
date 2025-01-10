@@ -71,7 +71,7 @@ const Discount = () => {
               <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
                 <div
                   key={destination.id}
-                  className="bg-white rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow"
+                  className="bg-transparent border-2 border-[#2b2864] rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow"
                 >
                   <div className="relative h-64">
                     <img
@@ -81,12 +81,12 @@ const Discount = () => {
                     />
                   </div>
                   <div className="p-6">
-                    <div className="flex items-center justify-between mb-4">
+                    <div className="flex items-center justify-between mb-4 text-white">
                       <h3 className="text-xl font-semibold flex items-center gap-2">
-                        <MapPin size={20} className="text-blue-600" />
+                        <MapPin size={20} className="" />
                         {destination.name}
                       </h3>
-                      <span className="text-blue-600 font-bold">
+                      <span className="text-white font-bold">
                         ${destination.price}
                       </span>
                     </div>

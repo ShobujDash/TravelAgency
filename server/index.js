@@ -24,6 +24,7 @@ connectDB();
 app.use(cookieParser());
 app.use(
   cors({
+    // origin: "http://localhost:5173", // আপনার ফ্রন্টএন্ড URL
     origin: process.env.FROTEND_URL_PRODUCTION, // আপনার ফ্রন্টএন্ড URL
     credentials: true, // Cookie Enable করার জন্য
     methods: ["GET", "POST", "PUT", "DELETE"],
