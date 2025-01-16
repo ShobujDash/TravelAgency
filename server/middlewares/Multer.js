@@ -1,24 +1,14 @@
-const jwt = require("jsonwebtoken");
-const { DecodeToken } = require("../helpers/decodeToken");
+const multer = require("multer");
 
-module.exports = (req, res, next) => {
-  // console.log("Cookies:", req.cookies); // Cookies ডিবাগ করুন
-  const token = req.cookies["token"]; // টোকেন বের করুন
+// Define storage with both destination and filename
+const storage = multer.diskStorage({
+  filename: function (req, file, callback) {
+    callback(null, file.originalname);
+  },
+});
 
-  if (!token) {
-    // console.log("Token not found in cookies");
-    return res
-      .status(401)
-      .json({ success: false, message: "Unauthorized", token });
-  }
+const upload = multer({
+  storage: storage,
+});
 
-  try {
-    const decoded = DecodeToken(token);
-    req.headers.id = decoded.userId;
-    req.headers.isAdmin = decoded.isAdmin;
-    next();
-  } catch (error) {
-    console.error("Token decoding failed:", error);
-    return res.status(401).json({ success: false, message: "Invalid Token" });
-  }
-};
+module.exports = upload;

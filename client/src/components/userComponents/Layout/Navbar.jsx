@@ -1,11 +1,13 @@
 import { useAuthContext } from "@/context/AuthContext";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import Logo from "../../../assets/image/TrableLogo.png";
 import { Button } from "../../ui/button";
 import { Popover, PopoverContent, PopoverTrigger } from "../../ui/popover";
+import { RiAdminFill } from "react-icons/ri";
 
-import { logout } from "@/services/AuthApiService";
+
+import { logout, userProfile } from "@/services/AuthApiService";
 import { FaHeart, FaSignOutAlt, FaUser } from "react-icons/fa";
 import { IoBookmarks } from "react-icons/io5";
 import { toast } from "react-toastify";
@@ -25,6 +27,9 @@ const Navbar = () => {
       setUser(null);
     }
   };
+
+
+  
 
   return (
     <>
@@ -83,6 +88,15 @@ const Navbar = () => {
                     <FaHeart />
                     <p>Saved</p>
                   </Link>
+                  {user && user?.isAdmin && (
+                    <Link
+                      to="/admin"
+                      className="flex gap-3 items-center hover:bg-blue-400 hover:text-white p-2 cursor-pointer"
+                    >
+                      <RiAdminFill />
+                      <p>Admin Pannel</p>
+                    </Link>
+                  )}
                   <div
                     onClick={handleLogout}
                     className="flex gap-3 items-center hover:bg-blue-400 hover:text-white p-2 cursor-pointer"
@@ -94,7 +108,7 @@ const Navbar = () => {
               </Popover>
             ) : (
               <Link to="/login">
-                <MovingBorderButton>Signin</MovingBorderButton>
+                <MovingBorderButton>Sign In</MovingBorderButton>
               </Link>
             )}
 

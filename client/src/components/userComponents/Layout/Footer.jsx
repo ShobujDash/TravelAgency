@@ -88,7 +88,7 @@ export const Footer = () => {
         {/* Contact Section */}
         <div>
           <h3 className="text-lg font-semibold mb-4">Contact</h3>
-          <p className="text-sm">info@travelwithus.com</p>
+          <p className="text-sm">travel24@gmail.com</p>
           <p className="text-sm">+88 09678 332211</p>
           <div className="flex space-x-4 mt-4">
             <a

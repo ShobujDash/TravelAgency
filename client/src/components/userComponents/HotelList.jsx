@@ -1,141 +1,23 @@
+import { useHotelContext } from "@/context/HotelContext";
+import { useEffect } from "react";
 import { FaStar } from "react-icons/fa";
 import { FaBath } from "react-icons/fa6";
 import { MdLocationPin } from "react-icons/md";
 import { SlBadge } from "react-icons/sl";
 import { TbAirConditioning, TbFriends } from "react-icons/tb";
-import coxbarzarpic from "../../assets/image/coxbazar.jpeg";
+import { useNavigate } from "react-router-dom";
 import { MovingBorderButton } from "../MoveingBorderButton";
 import MasterLayout from "./Layout/MasterLayout";
-import { useNavigate } from "react-router-dom";
 
 const HotelList = () => {
-
   const navigate = useNavigate();
+  const { getHotels, hotels, setHotels } = useHotelContext();
 
-const hotels = [
-  {
-    id: 1,
-    name: "Sea Pearl Beach Resort & Spa Cox's Bazar",
-    rating: "5 Star",
-    location: "Inani, Cox's Bazar",
-    features: ["Couple Friendly", "Accessible Bathroom", "Air Conditioning"],
-    discount: "68%",
-    extraDiscount: "Extra 5% discount for bKash payment.",
-    oldPrice: "BDT 14,230",
-    newPrice: "BDT 4,493",
-    image: coxbarzarpic, // Replace with actual image URL
-  },
-  {
-    id: 2,
-    name: "Ramada by Wyndham Cox's Bazar",
-    rating: "5 Star",
-    location: "Kolatoli, Cox's Bazar",
-    features: ["Couple Friendly", "Accessible Bathroom", "Air Conditioning"],
-    discount: "48%",
-    extraDiscount: "Extra 5% discount for bKash payment.",
-    oldPrice: "BDT 12,500",
-    newPrice: "BDT 6,500",
-    image: coxbarzarpic, // Replace with actual image URL
-  },
-  {
-    id: 3,
-    name: "Hotel The Cox Today",
-    rating: "4 Star",
-    location: "Kolatoli, Cox's Bazar",
-    features: ["Swimming Pool", "Free WiFi", "Spa Services"],
-    discount: "50%",
-    extraDiscount: "Extra 3% discount for card payment.",
-    oldPrice: "BDT 10,000",
-    newPrice: "BDT 5,000",
-    image: coxbarzarpic, // Replace with actual image URL
-  },
-  {
-    id: 4,
-    name: "Long Beach Hotel Cox's Bazar",
-    rating: "4 Star",
-    location: "Kolatoli Road, Cox's Bazar",
-    features: ["Rooftop Pool", "Fitness Center", "Couple Friendly"],
-    discount: "40%",
-    extraDiscount: "Extra 5% discount for bKash payment.",
-    oldPrice: "BDT 11,000",
-    newPrice: "BDT 6,600",
-    image: coxbarzarpic, // Replace with actual image URL
-  },
-  {
-    id: 5,
-    name: "Sayeman Beach Resort",
-    rating: "5 Star",
-    location: "Marine Drive, Cox's Bazar",
-    features: ["Ocean View", "Spa Services", "Air Conditioning"],
-    discount: "35%",
-    extraDiscount: "Extra 5% discount for bKash payment.",
-    oldPrice: "BDT 15,000",
-    newPrice: "BDT 9,750",
-    image: coxbarzarpic, // Replace with actual image URL
-  },
-  {
-    id: 6,
-    name: "Ocean Paradise Hotel & Resort",
-    rating: "5 Star",
-    location: "Kolatoli Road, Cox's Bazar",
-    features: ["Free Breakfast", "Spa Services", "Couple Friendly"],
-    discount: "60%",
-    extraDiscount: "Extra 7% discount for bKash payment.",
-    oldPrice: "BDT 13,000",
-    newPrice: "BDT 5,200",
-    image: coxbarzarpic, // Replace with actual image URL
-  },
-  {
-    id: 7,
-    name: "Mermaid Beach Resort",
-    rating: "4 Star",
-    location: "Pechar Dwip, Cox's Bazar",
-    features: ["Private Beach", "Eco-Friendly Rooms", "Couple Friendly"],
-    discount: "30%",
-    extraDiscount: "Extra 2% discount for bKash payment.",
-    oldPrice: "BDT 8,500",
-    newPrice: "BDT 5,950",
-    image: coxbarzarpic, // Replace with actual image URL
-  },
-  {
-    id: 8,
-    name: "White Orchid Cox's Bazar",
-    rating: "3 Star",
-    location: "Kolatoli, Cox's Bazar",
-    features: ["Free Parking", "Swimming Pool", "Accessible Bathroom"],
-    discount: "25%",
-    extraDiscount: "Extra 5% discount for bKash payment.",
-    oldPrice: "BDT 7,000",
-    newPrice: "BDT 5,250",
-    image: coxbarzarpic, // Replace with actual image URL
-  },
-  {
-    id: 9,
-    name: "Hotel Mishuk",
-    rating: "3 Star",
-    location: "Kolatoli Beach, Cox's Bazar",
-    features: ["Free WiFi", "Couple Friendly", "Air Conditioning"],
-    discount: "45%",
-    extraDiscount: "Extra 5% discount for bKash payment.",
-    oldPrice: "BDT 9,000",
-    newPrice: "BDT 4,950",
-    image: coxbarzarpic, // Replace with actual image URL
-  },
-  {
-    id: 10,
-    name: "Blue Ocean Resort",
-    rating: "4 Star",
-    location: "Marine Drive Road, Cox's Bazar",
-    features: ["Ocean View", "Spa Services", "Couple Friendly"],
-    discount: "55%",
-    extraDiscount: "Extra 10% discount for bKash payment.",
-    oldPrice: "BDT 14,000",
-    newPrice: "BDT 6,300",
-    image: coxbarzarpic, // Replace with actual image URL
-  },
-];
-
-
+  useEffect(() => {
+    (async () => {
+      await getHotels();
+    })();
+  }, []);
 
   const handleNavigate = (hotelId, searchId) => {
     navigate(`/hotel/details?hotelId=${hotelId}&searchId=${searchId}`);
@@ -192,20 +74,20 @@ const hotels = [
           {/* Hotel Cards */}
           <div className="col-span-1 lg:col-span-3 text-white">
             <p className="font-medium mb-4">
-              10 properties found
+              {hotels?.length} properties found
               <span className="text-gray-400 ml-2">
                 (Showing popular listings)
               </span>
             </p>
             <div className="flex flex-col gap-4">
-              {hotels.map((hotel) => (
+              {hotels?.map((hotel) => (
                 <div
                   key={hotel.id}
                   className="bg-transparent shadow-lg shadow-black border-2 border-[#2b2864]  rounded-lg flex flex-col md:flex-row"
                 >
                   <div className="relative rounded-lg text-white">
                     <img
-                      src={hotel.image}
+                      src={hotel?.images[0]?.imageUrl}
                       alt={hotel.name}
                       className="w-full h-48 object-cover rounded-lg"
                     />
@@ -215,20 +97,20 @@ const hotels = [
                     </div>
                   </div>
                   <div className="p-4 flex-1 text-white">
-                    <h3 className="font-bold text-lg">{hotel.name}</h3>
+                    <h3 className="font-bold text-lg">{hotel?.name}</h3>
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-3">
                         <p className="text-sm text-white flex gap-2 items-center border border-blue-300 px-2 rounded-lg">
                           <FaStar className="text-yellow-400" />{" "}
-                          <span>3 star</span>
+                          <span>{hotel?.star} star</span>
                         </p>
                         <p className="text-sm text-gray-200 flex items-center gap-1 font-light">
                           <MdLocationPin />
-                          {hotel.location}
+                          {hotel?.place}
                         </p>
                       </div>
                       <p className="text-sm text-white bg-[#FD7E14] px-2 py-1 rounded-full">
-                        60% off
+                        {hotel?.discount}% off
                       </p>
                     </div>
 
@@ -249,18 +131,20 @@ const hotels = [
                     <div className="flex items-center justify-between mt-4">
                       <div>
                         <p className="line-through text-gray-400 text-sm">
-                          {hotel.oldPrice}
+                          BDT {hotel?.discountPrice}
                         </p>
                         <p className="font-bold text-lg text-blue-600">
-                          {hotel.newPrice}
+                          BDT {hotel?.pricePerRoom} Per Room
                         </p>
                         <p className="text-sm text-green-500">
-                          {hotel.extraDiscount}
+                          Extra 5% discount for bKash payment.
                         </p>
                       </div>
 
                       <MovingBorderButton
-                        handleClick={() => handleNavigate(hotel.id, "87509029")}
+                        handleClick={() =>
+                          handleNavigate(hotel?._id, "87509029")
+                        }
                       >
                         Select
                       </MovingBorderButton>

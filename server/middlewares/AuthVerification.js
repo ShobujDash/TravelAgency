@@ -1,7 +1,6 @@
 const jwt = require("jsonwebtoken");
 const { DecodeToken } = require("../helper/decodeToken");
 
-
 module.exports = (req, res, next) => {
   // console.log("Cookies:", req.cookies); // Cookies ডিবাগ করুন
   const token = req.cookies["token"]; // টোকেন বের করুন
@@ -15,6 +14,7 @@ module.exports = (req, res, next) => {
 
   try {
     const decoded = DecodeToken(token);
+
     req.headers.id = decoded.userId;
     req.headers.isAdmin = decoded.isAdmin;
     next();

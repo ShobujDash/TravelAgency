@@ -6,7 +6,7 @@ const AuthContext = createContext(null);
 const AuthContextProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [isLoggedIn, setIsLoggedIn] = useState(
-    sessionStorage.getItem("login") === "1"
+    sessionStorage.getItem("isLoggedIn") === "1"
   );
   const [isAdmin, setIsAdmin] = useState(false);
   const [refresher,setRefresher] = useState(0);
