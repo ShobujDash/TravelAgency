@@ -9,7 +9,7 @@ const router = express.Router();
 router.post("/",AuthVerification, createHotel);
 
 // Get all hotels
-router.get("/",AuthVerification, getAllHotels);
+router.get("/", getAllHotels);
 
 // Get a single hotel by ID
 router.get("/:id",AuthVerification, getHotelById);
