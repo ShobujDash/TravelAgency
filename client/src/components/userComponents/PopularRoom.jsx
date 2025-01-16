@@ -5,7 +5,10 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
+import { useHotelContext } from "@/context/HotelContext";
 import { MapPin } from "lucide-react";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 const destinations = [
   {
     id: 1,
@@ -46,6 +49,21 @@ const destinations = [
 // import { IconAppWindow } from "@tabler/icons-react";
 
 const PopularRoom = () => {
+
+  const navigate = useNavigate();
+  const { getHotels, hotels, setHotels } = useHotelContext();
+
+  useEffect(() => {
+    (async () => {
+      await getHotels();
+    })();
+  }, []);
+
+  const handleNavigate = (hotelId, searchId) => {
+    navigate(`/hotel/details?hotelId=${hotelId}&searchId=${searchId}`);
+  };
+
+
   return (
     <section className="py-16 max-w-6xl mx-auto px-4 md:px-6 lg:px-8">
       {/* <div */}
@@ -75,7 +93,7 @@ const PopularRoom = () => {
         className="sm:max-w-6xl mx-auto"
       >
         <CarouselContent>
-          {destinations.map((destination, index) => (
+          {hotels?.map((hotel, index) => (
             <CarouselItem
               key={index}
               className="basis-full sm:basis-1/2 lg:basis-1/3 "
@@ -84,8 +102,8 @@ const PopularRoom = () => {
                 {/* Image Section */}
                 <div className="relative h-48 sm:h-64 lg:h-72">
                   <img
-                    src={destination.image}
-                    alt={destination.name}
+                    src={hotel?.images[0]?.imageUrl}
+                    alt={hotel?.name}
                     className="w-full h-full object-cover hover:scale-110 transition-transform duration-200"
                   />
                 </div>
@@ -94,13 +112,18 @@ const PopularRoom = () => {
                   <div className="flex items-center justify-between mb-4 text-white">
                     <h3 className="text-sm md:text-lg lg:text-xl font-semibold flex items-center gap-2">
                       <MapPin size={20} className="text-white" />
-                      {destination.name}
+                      {hotel?.name}
                     </h3>
                     <span className="text-white font-bold">
-                      ${destination.price}
+                      ${hotel?.pricePerRoom}
                     </span>
                   </div>
-                  <button className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-md text-sm lg:text-base">
+                  <button
+                    onClick={() =>
+                      handleNavigate(hotel?._id, "87509029")
+                    }
+                    className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-md text-sm lg:text-base"
+                  >
                     View Details
                   </button>
                 </div>

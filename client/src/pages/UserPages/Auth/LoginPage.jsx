@@ -3,18 +3,15 @@ import { useNavigate } from "react-router-dom";
 
 import OAuth from "@/components/OAuth";
 import { Button } from "@/components/ui/button";
-import instance from "@/utils/axios";
-import { Loader2 } from "lucide-react";
-import "./login.css";
-import { toast } from "react-toastify";
 import { useAuthContext } from "@/context/AuthContext";
 import { loginUser, registerUser } from "@/services/AuthApiService";
+import { Loader2 } from "lucide-react";
+import { toast } from "react-toastify";
+import "./login.css";
 
 const Login = () => {
   const navigate = useNavigate();
   const { setUser, isLoggedIn } = useAuthContext();
-
-
 
   const [formData, setFormData] = useState({
     email: "",
@@ -43,28 +40,39 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      setBtnLoader(true);
-      const data = await loginUser(formData); // Use the service function here
+      setBtnLoader(true); // Show loader
+
+      const data = await loginUser(formData); // Call login service
       if (data?.success) {
         toast.success(data?.message);
-         sessionStorage.setItem("login", "1");
+
+        // Save login state and user information
+        sessionStorage.setItem("isLoggedIn", "1");
         setUser(data?.user);
-        setBtnLoader(false);
+
+        // Reset form
         setFormData({
           email: "",
           password: "",
-          name: "",
         });
-        navigate("/");
+
+        // Navigate based on user role
+        if (data?.user?.isAdmin) {
+          navigate("/admin");
+        } else {
+          navigate("/");
+        }
       } else {
-        toast.error(data?.message);
-        setBtnLoader(false);
+        toast.error(data?.message); // Show error message from response
       }
     } catch (loginError) {
-      console.error("লগইন ত্রুটি:", loginError);
-      toast.error("কিছু ভুল হয়েছে। আবার চেষ্টা করুন।");
+      console.error("Login Error:", loginError); // Log error for debugging
+      toast.error(
+        loginError?.response?.data?.message ||
+          "Something went wrong. Please try again."
+      ); // Specific error or fallback message
     } finally {
-      setBtnLoader(false);
+      setBtnLoader(false); // Ensure the loader is stopped
     }
   };
 
@@ -73,26 +81,38 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      setBtnLoader(true);
+      setBtnLoader(true); // Show loader
       const data = await registerUser(formData); // Use the service function here
+
       if (data?.success) {
         toast.success(data?.message);
-        sessionStorage.setItem("login","1")
+
+        // Save login state and user information
+        sessionStorage.setItem("isLoggedIn", "1");
         setUser(data?.user);
-        setBtnLoader(false);
+
+        // Reset form and stop loader
         setFormData({
           email: "",
           password: "",
           name: "",
         });
-        navigate("/");
-      } else {
-        toast.error(data?.message);
         setBtnLoader(false);
+
+        // Navigate based on user role
+        if (data?.user?.isAdmin) {
+          navigate("/admin");
+        } else {
+          navigate("/");
+        }
+      } else {
+        toast.error(data?.message); // Show error message from response
+        setBtnLoader(false); // Stop loader
       }
     } catch (error) {
-      toast.error("Something Went Wrong...");
-      setBtnLoader(false);
+      console.error("Error during registration:", error); // Log error for debugging
+      toast.error(error?.response?.data?.message || "Something went wrong..."); // Specific error or fallback message
+      setBtnLoader(false); // Stop loader
     }
   };
 

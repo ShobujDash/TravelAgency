@@ -1,41 +1,58 @@
-import React, { useState } from "react";
 import { Sidebar, SidebarBody, SidebarLink } from "@/components/ui/sidebar";
+import { cn } from "@/lib/utils";
 import {
   IconArrowLeft,
   IconBrandTabler,
+  IconLogout2,
   IconSettings,
   IconUserBolt,
+  IconBuildingBurjAlArab,
+  IconSlideshow,
+  IconCheckupList,
 } from "@tabler/icons-react";
 import { motion } from "framer-motion";
-import { cn } from "@/lib/utils";
+import { useState } from "react";
 
-
-export function AdminSidebar() {
+export function AdminSidebar({ children }) {
   const links = [
     {
       label: "Dashboard",
-      href: "#",
+      href: "/dashboard",
       icon: (
         <IconBrandTabler className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
       ),
     },
     {
-      label: "Profile",
-      href: "#",
+      label: "Add Resort",
+      href: "/admin/add-resort",
       icon: (
-        <IconUserBolt className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
+        <IconBuildingBurjAlArab className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
       ),
     },
     {
-      label: "Settings",
-      href: "#",
+      label: "Add Slider",
+      href: "/admin/set-silder-image",
       icon: (
-        <IconSettings className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
+        <IconSlideshow className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
+      ),
+    },
+    {
+      label: "User Checkout Resort",
+      href: "/admin/user-checkout-resort",
+      icon: (
+        <IconCheckupList className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
       ),
     },
     {
       label: "Logout",
       href: "#",
+      icon: (
+        <IconLogout2 className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
+      ),
+    },
+    {
+      label: "Go Home",
+      href: "/",
       icon: (
         <IconArrowLeft className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
       ),
@@ -78,7 +95,10 @@ export function AdminSidebar() {
           </div>
         </SidebarBody>
       </Sidebar>
-      <Dashboard />
+      <div className="flex w-full flex-col gap-1 bg-gradient-to-r from-[#0C1529] via-[#0A2339] to-[#19173B] m-0 p-0">
+        <Navbar />
+        {children}
+      </div>
     </div>
   );
 }
@@ -112,28 +132,40 @@ export const LogoIcon = () => {
   );
 };
 
-// Dummy dashboard component with content
-const Dashboard = () => {
+
+// Simple Navbar Component
+const Navbar = () => {
   return (
-    <div className="flex flex-1">
-      <div className="p-2 md:p-10 rounded-tl-2xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 flex flex-col gap-2 flex-1 w-full h-full">
-        <div className="flex gap-2">
-          {[...new Array(4)].map((_, i) => (
-            <div
-              key={"first-array" + i}
-              className="h-20 w-full rounded-lg bg-gray-100 dark:bg-neutral-800 animate-pulse"
-            ></div>
-          ))}
+    <nav className="w-full h-16 bg-gradient-to-r from-indigo-500 to-blue-600 p-4 shadow-lg flex items-center justify-between">
+      {/* Logo or Title */}
+      <div className="flex items-center gap-4">
+        <div className="h-8 w-8 bg-white rounded-full flex items-center justify-center shadow-md">
+          <span className="text-indigo-500 font-bold text-xl">A</span>
         </div>
-        <div className="flex gap-2 flex-1">
-          {[...new Array(2)].map((_, i) => (
-            <div
-              key={"second-array" + i}
-              className="h-full w-full rounded-lg bg-gray-100 dark:bg-neutral-800 animate-pulse"
-            ></div>
-          ))}
-        </div>
+        <h1 className="text-lg font-semibold text-white tracking-wide">
+          Admin Panel
+        </h1>
       </div>
-    </div>
+
+      {/* Navigation Links */}
+      <div className="flex items-center gap-6">
+        <a
+          href="#"
+          className="text-sm font-medium text-white hover:text-gray-200 transition"
+        >
+          Help
+        </a>
+        <a
+          href="#"
+          className="text-sm font-medium text-white hover:text-gray-200 transition"
+        >
+          Contact
+        </a>
+        <button className="px-4 py-2 bg-white text-indigo-500 font-medium text-sm rounded-md shadow-md hover:bg-gray-100 transition">
+          Logout
+        </button>
+      </div>
+    </nav>
   );
 };
+

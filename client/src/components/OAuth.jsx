@@ -1,12 +1,12 @@
 import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 
 import { useAuthContext } from "@/context/AuthContext";
+import instance from "@/utils/axios";
 import { app } from "@/utils/firebase";
 import { AiFillGoogleCircle } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
-import { Button } from "./ui/button";
 import { toast } from "react-toastify";
-import instance from "@/utils/axios";
+import { Button } from "./ui/button";
 
 function OAuth() {
   const { user, setUser, setRefresher } = useAuthContext();
@@ -25,9 +25,13 @@ function OAuth() {
       });
       if (data?.success) {
         toast.success("Login Successfull.");
-        sessionStorage.setItem("login", "1")
-        setUser(data?.user)
-        navigate("/");
+        sessionStorage.setItem("login", "1");
+        setUser(data?.user);
+        if (data?.user?.isAdmin) {
+          navigate("/admin");
+        } else {
+          navigate("/");
+        }
       } else {
         toast.error(data?.message);
       }

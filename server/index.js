@@ -1,5 +1,8 @@
 const express = require("express");
 const userRouter = require("./routes/AuthRoute");
+const hotelRoutes = require("./routes/HotelRoute");
+const mediaRoutes = require("./routes/MediaRoute");
+const hotelBookRoutes = require("./routes/HotelBookRoutes");
 
 const app = new express();
 const dotenv = require("dotenv").config();
@@ -24,7 +27,6 @@ connectDB();
 app.use(cookieParser());
 app.use(
   cors({
-    // origin: "http://localhost:5173", // আপনার ফ্রন্টএন্ড URL
     origin: process.env.FROTEND_URL_PRODUCTION, // আপনার ফ্রন্টএন্ড URL
     credentials: true, // Cookie Enable করার জন্য
     methods: ["GET", "POST", "PUT", "DELETE"],
@@ -52,6 +54,9 @@ app.use(limiter);
 
 // Routing Implement
 app.use("/api/user", userRouter);
+app.use("/api/hotels", hotelRoutes);
+app.use("/api/media", mediaRoutes);
+app.use("/api/hotel-bookings", hotelBookRoutes);
 
 
 // Undefined Route Implement

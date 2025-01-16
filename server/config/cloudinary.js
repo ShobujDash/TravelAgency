@@ -10,7 +10,7 @@ cloudinary.config({
 const uploadMediaToCloudinary = async (filePath) => {
   try {
     const result = await cloudinary.uploader.upload(filePath, {
-      folder: "deshprio", // Optional: specify a folder in Cloudinary
+      folder: "travel", // Optional: specify a folder in Cloudinary
       resource_type: "image", // Ensure the resource is treated as an image
     });
     return result; // Returns the Cloudinary result object
@@ -20,21 +20,12 @@ const uploadMediaToCloudinary = async (filePath) => {
   }
 };
 
-// const deleteMediaFromCloudinary = async (publicID) => {
-//   try {
-//     await cloudinary.uploader.destroy(publicID);
-//   } catch (error) {
-//     console.error(error);
-//     throw new Error("Failed to delete asset from Cloudinary");
-//   }
-// };
-
 const deleteMediaFromCloudinary = async (publicID) => {
   try {
     if (typeof publicID !== "string") {
       throw new Error("Invalid publicID provided. It must be a string.");
     }
-    await cloudinary.uploader.destroy(`deshprio/${publicID}`);
+    await cloudinary.uploader.destroy(`travel/${publicID}`);
     console.log(`Successfully deleted asset with publicID ${publicID}`);
     return {
       success: true,

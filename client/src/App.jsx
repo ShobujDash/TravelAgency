@@ -1,17 +1,20 @@
 import { Route, Routes } from "react-router-dom";
-import Login from "./pages/UserPages/Auth/LoginPage";
-import HomePage from "./pages/UserPages/HomePage";
-import { AdminSidebar } from "./components/adminComponents/Sidebar";
 import ProtectedRoute from "./components/ProtectedRoute";
-import ProfilePage from "./pages/UserPages/ProfilePage";
-import MyFevouritePage from "./pages/UserPages/MyFevouritePage";
-import MyBookingPage from "./pages/UserPages/MyBookingPage";
-import HotelList from "./components/userComponents/HotelList";
 import HotelDetails from "./components/userComponents/HotelDetails";
-import GalleryPage from "./pages/UserPages/GalleryPage";
+import HotelList from "./components/userComponents/HotelList";
+import AdminHomePage from "./pages/AdminPages/AdminHomePage";
 import AboutPage from "./pages/UserPages/AboutPage";
-import ServicePage from "./pages/UserPages/ServicePage";
+import Login from "./pages/UserPages/Auth/LoginPage";
 import ContactPage from "./pages/UserPages/ContactPage";
+import GalleryPage from "./pages/UserPages/GalleryPage";
+import HomePage from "./pages/UserPages/HomePage";
+import MyBookingPage from "./pages/UserPages/MyBookingPage";
+import MyFevouritePage from "./pages/UserPages/MyFevouritePage";
+import ProfilePage from "./pages/UserPages/ProfilePage";
+import ServicePage from "./pages/UserPages/ServicePage";
+import AdminAddResortPage from "./pages/AdminPages/AdminAddResortPage";
+import AdminAddSliderImage from "./pages/AdminPages/AdminAddSliderImage";
+import AdminUserCheckoutResort from "./pages/AdminPages/AdminUserCheckout";
 
 function App() {
   return (
@@ -30,10 +33,19 @@ function App() {
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/my-booking" element={<MyBookingPage />} />
         <Route path="/my-fevoruite" element={<MyFevouritePage />} />
-        
 
         <Route element={<ProtectedRoute />}>
-          <Route path="/admin" element={<AdminSidebar />} />
+          <Route path="/admin" element={<AdminHomePage />} />
+          <Route path="/dashboard" element={<AdminHomePage />} />
+          <Route path="/admin/add-resort" element={<AdminAddResortPage />}/>
+          <Route
+            path="/admin/set-silder-image"
+            element={<AdminAddSliderImage />}
+          />
+          <Route
+            path="/admin/user-checkout-resort"
+            element={<AdminUserCheckoutResort />}
+          />
         </Route>
       </Routes>
     </>
