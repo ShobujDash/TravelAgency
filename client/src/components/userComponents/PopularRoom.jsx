@@ -9,47 +9,8 @@ import { useHotelContext } from "@/context/HotelContext";
 import { MapPin } from "lucide-react";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-const destinations = [
-  {
-    id: 1,
-    name: "Santorini, Greece",
-    image:
-      "https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?auto=format&fit=crop&q=80",
-    price: "1,299",
-  },
-  {
-    id: 2,
-    name: "Bali, Indonesia",
-    image:
-      "https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&q=80",
-    price: "999",
-  },
-  {
-    id: 3,
-    name: "Machu Picchu, Peru",
-    image:
-      "https://images.unsplash.com/photo-1587595431973-160d0d94add1?auto=format&fit=crop&q=80",
-    price: "1,499",
-  },
-  {
-    id: 4,
-    name: "Machu Picchu, Peru",
-    image:
-      "https://images.unsplash.com/photo-1587595431973-160d0d94add1?auto=format&fit=crop&q=80",
-    price: "1,499",
-  },
-  {
-    id: 5,
-    name: "Machu Picchu, Peru",
-    image:
-      "https://images.unsplash.com/photo-1587595431973-160d0d94add1?auto=format&fit=crop&q=80",
-    price: "1,499",
-  },
-];
-// import { IconAppWindow } from "@tabler/icons-react";
 
 const PopularRoom = () => {
-
   const navigate = useNavigate();
   const { getHotels, hotels, setHotels } = useHotelContext();
 
@@ -62,7 +23,6 @@ const PopularRoom = () => {
   const handleNavigate = (hotelId, searchId) => {
     navigate(`/hotel/details?hotelId=${hotelId}&searchId=${searchId}`);
   };
-
 
   return (
     <section className="py-16 max-w-6xl mx-auto px-4 md:px-6 lg:px-8">
@@ -119,9 +79,7 @@ const PopularRoom = () => {
                     </span>
                   </div>
                   <button
-                    onClick={() =>
-                      handleNavigate(hotel?._id, "87509029")
-                    }
+                    onClick={() => handleNavigate(hotel?._id, "87509029")}
                     className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-md text-sm lg:text-base"
                   >
                     View Details

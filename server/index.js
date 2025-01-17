@@ -3,6 +3,9 @@ const userRouter = require("./routes/AuthRoute");
 const hotelRoutes = require("./routes/HotelRoute");
 const mediaRoutes = require("./routes/MediaRoute");
 const hotelBookRoutes = require("./routes/HotelBookRoutes");
+const commentRoute = require("./routes/CommentRoute");
+
+
 
 const app = new express();
 const dotenv = require("dotenv").config();
@@ -57,6 +60,7 @@ app.use("/api/user", userRouter);
 app.use("/api/hotels", hotelRoutes);
 app.use("/api/media", mediaRoutes);
 app.use("/api/hotel-bookings", hotelBookRoutes);
+app.use("/api/comment", commentRoute);
 
 
 // Undefined Route Implement

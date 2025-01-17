@@ -4,7 +4,11 @@ const HotelBookModel = require("../models/HotelBook");
 const createHotelBooking = async (req, res) => {
   try {
    
-    console.log("userId", req.headers.id);
+    const userId = req.headers.id
+ 
+    if (!userId) {
+      return res.status(500).json({ success: false, message: "Not Authenticated" });
+    }
     const { hotelId} = req.body;
 
     // console.log(userId,hotelId)
