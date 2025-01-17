@@ -1,20 +1,17 @@
+import { getHotelById } from "@/services/HotelApiServices";
+import { hotelBooking } from "@/services/HotelBookService";
 import { useEffect, useState } from "react";
 import { FaRegHeart } from "react-icons/fa";
-import hotel1 from "../../assets/image/hotel/hotel1.jpg";
+import { useLocation } from "react-router-dom";
+import { toast } from "react-toastify";
 import hotel2 from "../../assets/image/hotel/hotel2.jpg";
-import hotel3 from "../../assets/image/hotel/hotel3.jpg";
-import hotel4 from "../../assets/image/hotel/hotel4.jpg";
-import hotel5 from "../../assets/image/hotel/hotel5.jpg";
-import hotel6 from "../../assets/image/hotel/hotel6.jpg";
+
 import { Tabs } from "../ui/tabs";
 import MasterLayout from "./Layout/MasterLayout";
-import { useLocation } from "react-router-dom";
-import { getHotelById } from "@/services/HotelApiServices";
-import { constructNow } from "date-fns";
-import { toast } from "react-toastify";
-import { hotelBooking } from "@/services/HotelBookService";
-import { useAuthContext } from "@/context/AuthContext";
-const hotelPic = [hotel3, hotel4, hotel5, hotel6];
+import RedHeartIcon from "../../assets/image/heart-red.svg"
+import HeartIcon from "../../assets/image/heart.svg"
+import ReviewSection from "./ReviewSection";
+
 const DummyContent = () => {
   return (
     <div className="max-w-full mx-auto p-4 grid grid-cols-1 lg:grid-cols-2 gap-6 overflow-y-scroll no-scrollbar">
@@ -76,153 +73,10 @@ const DummyContent = () => {
         </div>
 
         {/* Book Now Button */}
-       
       </div>
     </div>
   );
 };
-
-const ReviewSection = () => {
-  const [reviews, setReviews] = useState([
-    {
-      id: 1,
-      user: "Gisella P.",
-      text: "Amazing! Aliquam, bibendum arcu quis, laoreet erat, phasellus nec congue lorem!",
-      rating: 4,
-      timeAgo: "9 months ago",
-    },
-    {
-      id: 2,
-      user: "Gisella P.",
-      text: "Amazing! Aliquam, bibendum arcu quis, laoreet erat, phasellus nec congue lorem!",
-      rating: 4,
-      timeAgo: "9 months ago",
-    },
-    {
-      id: 3,
-      user: "Gisella P.",
-      text: "Amazing! Aliquam, bibendum arcu quis, laoreet erat, phasellus nec congue lorem!",
-      rating: 4,
-      timeAgo: "9 months ago",
-    },
-    {
-      id: 4,
-      user: "Gisella P.",
-      text: "Amazing! Aliquam, bibendum arcu quis, laoreet erat, phasellus nec congue lorem!",
-      rating: 4,
-      timeAgo: "9 months ago",
-    },
-  ]);
-
-  const [newReview, setNewReview] = useState("");
-  const [newRating, setNewRating] = useState(0);
-
-  const handleAddReview = () => {
-    if (newReview.trim() && newRating > 0) {
-      setReviews([
-        ...reviews,
-        {
-          id: reviews.length + 1,
-          user: "Anonymous",
-          text: newReview,
-          rating: newRating,
-          timeAgo: "Just now",
-        },
-      ]);
-      setNewReview("");
-      setNewRating(0);
-    }
-  };
-
-  return (
-    <div
-      className="max-w-full mx-auto p-4 bg-transparent rounded-lg shadow-md overflow-y-auto h-[500px]"
-    >
-      {/* Add Review Section */}
-      <div className="mb-2">
-        <textarea
-          className="w-full p-3 border text-black border-gray-300 rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-blue-500"
-          rows="3"
-          placeholder="Write your review here..."
-          value={newReview}
-          onChange={(e) => setNewReview(e.target.value)}
-        ></textarea>
-        <div className="flex items-center justify-between mt-4">
-          {/* Star Rating */}
-          <div className="flex items-center gap-1">
-            {[1, 2, 3, 4, 5].map((star) => (
-              <button
-                key={star}
-                className={`text-xl ${
-                  star <= newRating ? "text-yellow-500" : "text-gray-300"
-                }`}
-                onClick={() => setNewRating(star)}
-              >
-                ★
-              </button>
-            ))}
-          </div>
-          <button
-            onClick={handleAddReview}
-            className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600"
-          >
-            Write Review
-          </button>
-        </div>
-      </div>
-
-      {/* Reviews Section */}
-      <div className="space-y-6">
-        {reviews.map((review) => (
-          <div
-            key={review.id}
-            className="p-4 bg-white rounded-lg shadow flex gap-4"
-          >
-            {/* User Avatar */}
-            <div>
-              <div className="w-12 h-12 rounded-full bg-gray-200 overflow-hidden">
-                <img
-                  src="https://via.placeholder.com/150"
-                  alt="User"
-                  className="w-full h-full object-cover"
-                />
-              </div>
-            </div>
-
-            {/* Review Content */}
-            <div className="flex-1">
-              <div className="flex items-center justify-between">
-                <h5 className="font-semibold">{review.user}</h5>
-                <span className="text-sm text-gray-500">{review.timeAgo}</span>
-              </div>
-              <div className="flex items-center gap-1 mt-1">
-                {[1, 2, 3, 4, 5].map((star) => (
-                  <span
-                    key={star}
-                    className={`text-sm ${
-                      star <= review.rating
-                        ? "text-yellow-500"
-                        : "text-gray-300"
-                    }`}
-                  >
-                    ★
-                  </span>
-                ))}
-              </div>
-              <p className="text-gray-700 mt-2">{review.text}</p>
-              <div className="flex items-center gap-4 mt-2 text-sm text-gray-500">
-                <button className="hover:underline">Like</button>
-                <button className="hover:underline">Dislike</button>
-                <button className="hover:underline">Reply</button>
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-};
-
 
 
 
@@ -243,44 +97,42 @@ const tabs = [
     content: (
       <div className="w-full overflow-hidden relative h-full rounded-2xl p-5 text-white bg-gradient-to-br from-purple-700 to-violet-900">
         <p className="md:text-4xl font-bold">Users valualbe comments</p>
-        <ReviewSection />
+        <ReviewSection  />
       </div>
     ),
   },
 ];
 
 const HotelDetails = () => {
-
   const location = useLocation();
-   const searchParams = new URLSearchParams(location.search);
+  const searchParams = new URLSearchParams(location.search);
   const hotelId = searchParams.get("hotelId");
 
-  const [hotel, setHotel] = useState(null)
+  const [hotel, setHotel] = useState(null);
+  const [isFavourite, setIsFavourite] = useState(false);
 
-  const hotelBooked = async() => {
+  const hotelBooked = async () => {
     try {
-      const data = await hotelBooking({hotelId});
+      const data = await hotelBooking({ hotelId });
       if (data?.success) {
-        toast.success(data?.message)
+        toast.success(data?.message);
       } else {
-        toast.error(data?.message)
+        toast.error("Please Login Before Booking");
       }
     } catch (error) {
-      console.log(error)
-      toast.error(error.message)
+      console.log(error);
+      toast.error("Please Login Before Booking");
     }
-  }
- 
+  };
 
-   useEffect(() => {
-     (async () => {
-       const data = await getHotelById(hotelId);
-       if (data?.success) {
-         setHotel(data?.data)
-       }
-     })();
-   }, []);
-
+  useEffect(() => {
+    (async () => {
+      const data = await getHotelById(hotelId);
+      if (data?.success) {
+        setHotel(data?.data);
+      }
+    })();
+  }, []);
 
   return (
     <MasterLayout>
@@ -294,8 +146,11 @@ const HotelDetails = () => {
                 alt="Hotel Main"
                 className="w-full h-full object-cover rounded-lg"
               />
-              <button className="absolute bottom-4 left-4 bg-white p-3 rounded-full shadow-md hover:bg-gray-100 transition">
-                <FaRegHeart className="text-red-500" />
+              <button
+                onClick={() => setIsFavourite(!isFavourite)}
+                className="absolute bottom-4 left-4 bg-gray-300 p-3 rounded-full shadow-md hover:bg-gray-100 transition"
+              >
+                <img src={isFavourite ? RedHeartIcon : HeartIcon} alt="heart" />
               </button>
             </div>
 
@@ -315,9 +170,7 @@ const HotelDetails = () => {
           <div className="lg:col-span-5 flex flex-col gap-6 text-white">
             {/* Hotel Title and Info */}
             <div>
-              <h2 className="text-2xl font-bold ">
-                {hotel?.name}
-              </h2>
+              <h2 className="text-2xl font-bold ">{hotel?.name}</h2>
               <p className="text-sm text-gray-200 mt-1">
                 🌟 {hotel?.star} Star · {hotel?.place}
               </p>
@@ -369,7 +222,8 @@ const HotelDetails = () => {
               </span>
               <button
                 onClick={hotelBooked}
-                className=" bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition">
+                className=" bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition"
+              >
                 Book Now
               </button>
             </div>
