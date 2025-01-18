@@ -7,7 +7,7 @@ const HotelBookSchema = mongoose.Schema(
     checkIn: { type: String, required: true },
     checkOut: { type: String, required: true },
     rooms: { type: Array, required: true },
-    payment: { type: Boolean },
+    payment: { type: Boolean ,default:false},
 
   },
   { timestamps: true }

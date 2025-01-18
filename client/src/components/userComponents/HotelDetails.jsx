@@ -128,12 +128,16 @@ const HotelDetails = () => {
         toast.success(data?.message);
       } else if (data?.message === "Unauthorized") {
         toast.error("Please Login Before Booking");
+      } else if (data?.message === "Invalid Token") {
+        toast.error("Please Login Before Booking");
       } else {
         toast.error("Please Pic A Date Before Booking");
       }
     } catch (error) {
       console.log(error);
       if (error?.message === "Unauthorized") {
+        toast.error("Please Login Before Booking");
+      } else if (error?.message === "Invalid Token") {
         toast.error("Please Login Before Booking");
       } else {
         toast.error("Something went wrong");
