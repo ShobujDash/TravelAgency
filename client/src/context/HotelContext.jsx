@@ -20,13 +20,6 @@ const HotelContextProvider = ({ children }) => {
     }
   };
 
-
-  console.log("in",checkInDate)
-  console.log("out",checkOutDate)
-  console.log("rooms",rooms)
-
-
-
   return (
     <HotelContext.Provider
       value={{

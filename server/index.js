@@ -5,6 +5,7 @@ const mediaRoutes = require("./routes/MediaRoute");
 const hotelBookRoutes = require("./routes/HotelBookRoutes");
 const commentRoute = require("./routes/CommentRoute");
 const sliderRoutes = require("./routes/SliderRoute");
+const paymentRoute = require("./routes/PaymentRoute");
 
 
 
@@ -63,6 +64,7 @@ app.use("/api/media", mediaRoutes);
 app.use("/api/hotel-bookings", hotelBookRoutes);
 app.use("/api/comment", commentRoute);
 app.use("/api/sliders", sliderRoutes);
+app.use("/api/payment", paymentRoute);
 
 
 // Undefined Route Implement
