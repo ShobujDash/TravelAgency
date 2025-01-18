@@ -6,6 +6,9 @@ const HotelContext = createContext(null);
 
 const HotelContextProvider = ({ children }) => {
   const [hotels,setHotels] = useState(null);
+  const [checkInDate,setCheckInDate] = useState("");
+  const [checkOutDate,setCheckOutDate] = useState("");
+  const [rooms, setRooms] = useState([{ adults: 2, children: 0 }]);
 
 
   const getHotels = async () => {
@@ -17,12 +20,27 @@ const HotelContextProvider = ({ children }) => {
     }
   };
 
- 
+
+  console.log("in",checkInDate)
+  console.log("out",checkOutDate)
+  console.log("rooms",rooms)
 
 
 
   return (
-    <HotelContext.Provider value={{ getHotels, hotels, setHotels }}>
+    <HotelContext.Provider
+      value={{
+        getHotels,
+        hotels,
+        setHotels,
+        checkInDate,
+        checkOutDate,
+        rooms,
+        setCheckInDate,
+        setCheckOutDate,
+        setRooms,
+      }}
+    >
       {children}
     </HotelContext.Provider>
   );

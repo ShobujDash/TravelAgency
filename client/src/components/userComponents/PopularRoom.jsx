@@ -39,7 +39,10 @@ const PopularRoom = () => {
           <p className="px-3 py-1 md:px-4 md:py-2 cursor-pointer font-medium text-blue-600 hover:bg-blue-200 hover:font-semibold">
             Room
           </p>
-          <p className="px-3 py-1 md:px-4 md:py-2 cursor-pointer font-medium text-blue-600 hover:bg-blue-200 hover:font-semibold">
+          <p
+            onClick={() => navigate("/hotel-list")}
+            className="px-3 py-1 md:px-4 md:py-2 cursor-pointer font-medium text-blue-600 hover:bg-blue-200 hover:font-semibold"
+          >
             Destination
           </p>
         </div>

@@ -1,8 +1,13 @@
 import instance from "@/utils/axios";
 
-export const hotelBooking = async (formdata) => {
+export const hotelBooking = async ({ hotelId, checkInDate, checkOutDate, rooms }) => {
   try {
-    const { data } = await instance.post(`/api/hotel-bookings`, formdata);
+    const { data } = await instance.post(`/api/hotel-bookings`, {
+      hotelId,
+      checkIn:checkInDate,
+      checkOut: checkOutDate,
+      rooms,
+    });
     return data;
   } catch (error) {
     throw error.response?.data || { message: "An error occurred" };

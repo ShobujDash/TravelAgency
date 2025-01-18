@@ -1,29 +1,41 @@
 import { useEffect, useState } from "react";
-import Banner01 from "../../assets/image/Banner01.jpg";
-import Banner02 from "../../assets/image/Banner02.jpg";
-import Banner03 from "../../assets/image/Banner03.jpeg";
-import Banner04 from "../../assets/image/Banner04.jpeg";
-import Banner05 from "../../assets/image/Banner05.jpeg";
-import Banner06 from "../../assets/image/Banner06.jpeg";
-import Banner from "../../assets/image/slider.webp";
+// import Banner01 from "../../assets/image/Banner01.jpg";
+// import Banner02 from "../../assets/image/Banner02.jpg";
+// import Banner03 from "../../assets/image/Banner03.jpeg";
+// import Banner04 from "../../assets/image/Banner04.jpeg";
+// import Banner05 from "../../assets/image/Banner05.jpeg";
+// import Banner06 from "../../assets/image/Banner06.jpeg";
+// import Banner from "../../assets/image/slider.webp";
+import { getAllSlider } from "@/services/SliderApiServices";
 
 const Carousel = () => {
-  const slides = [
-    Banner,
-    Banner01,
-    Banner02,
-    Banner03,
-    Banner04,
-    Banner05,
-    Banner06,
-  ];
+  // const slides = [
+  //   Banner,
+  //   Banner01,
+  //   Banner02,
+  //   Banner03,
+  //   Banner04,
+  // ];
+
 
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [carosolSlider, setCarosolSlider] = useState([]);
 
-  // Automatically change slides every 3 seconds
+
+
+
+    useEffect(() => {
+      (async () => {
+        const data = await getAllSlider();
+        if (data?.success) {
+          setCarosolSlider(data?.data);
+        }
+      })();
+    }, []);
+
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentIndex((prevIndex) => (prevIndex + 1) % slides.length);
+      setCurrentIndex((prevIndex) => (prevIndex + 1) % 5);
     }, 3000);
     return () => clearInterval(interval); // Cleanup on component unmount
   }, []);
@@ -35,7 +47,7 @@ const Carousel = () => {
     <div className="relative px-4 md:px-0 sm:p-0 max-w-7xl  mx-auto  w-full mb-4">
       {/* Slider Wrapper */}
       <div className="relative overflow-hidden h-56  rounded-lg px-4 lg:h-96 md:px-0">
-        {slides.map((item, index) => (
+        {carosolSlider[0]?.images.map((item, index) => (
           <div
             key={index}
             className={`absolute inset-0 transition-opacity duration-700 ease-in-out ${
@@ -43,7 +55,7 @@ const Carousel = () => {
             }`}
           >
             <img
-              src={item}
+              src={item?.imageUrl}
               alt={`Slide ${index + 1}`}
               className="w-full h-full object-fill sm:object-fill rounded-lg"
             />
@@ -53,7 +65,7 @@ const Carousel = () => {
 
       {/* Indicators */}
       <div className="absolute z-30 flex -translate-x-1/2 bottom-3 sm:bottom-5 left-1/2 space-x-2 sm:space-x-3">
-        {slides.map((_, index) => (
+        {carosolSlider[0]?.images.map((_, index) => (
           <button
             key={index}
             onClick={() => goToSlide(index)}

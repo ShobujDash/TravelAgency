@@ -1,15 +1,15 @@
 import { getHotelById } from "@/services/HotelApiServices";
 import { hotelBooking } from "@/services/HotelBookService";
 import { useEffect, useState } from "react";
-import { FaRegHeart } from "react-icons/fa";
 import { useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
 import hotel2 from "../../assets/image/hotel/hotel2.jpg";
 
+import { useHotelContext } from "@/context/HotelContext";
+import RedHeartIcon from "../../assets/image/heart-red.svg";
+import HeartIcon from "../../assets/image/heart.svg";
 import { Tabs } from "../ui/tabs";
 import MasterLayout from "./Layout/MasterLayout";
-import RedHeartIcon from "../../assets/image/heart-red.svg"
-import HeartIcon from "../../assets/image/heart.svg"
 import ReviewSection from "./ReviewSection";
 
 const DummyContent = () => {
@@ -78,32 +78,31 @@ const DummyContent = () => {
   );
 };
 
-
-
 const tabs = [
-  {
-    title: "Rooms",
-    value: "rooms",
-    content: (
-      <div className="w-full overflow-hidden relative h-full rounded-2xl p-5 text-white bg-gradient-to-br from-purple-700 to-violet-900">
-        <p className="md:text-4xl font-bold">See this hotel all rooms</p>
-        <DummyContent />
-      </div>
-    ),
-  },
+  // {
+  //   title: "Rooms",
+  //   value: "rooms",
+  //   content: (
+  //     <div className="w-full overflow-hidden relative h-full rounded-2xl p-5 text-white bg-gradient-to-br from-purple-700 to-violet-900">
+  //       <p className="md:text-4xl font-bold">See this hotel all rooms</p>
+  //       <DummyContent />
+  //     </div>
+  //   ),
+  // },
   {
     title: "Reviews",
     value: "reviews",
     content: (
       <div className="w-full overflow-hidden relative h-full rounded-2xl p-5 text-white bg-gradient-to-br from-purple-700 to-violet-900">
         <p className="md:text-4xl font-bold">Users valualbe comments</p>
-        <ReviewSection  />
+        <ReviewSection />
       </div>
     ),
   },
 ];
 
 const HotelDetails = () => {
+  const { checkInDate, checkOutDate, rooms } = useHotelContext();
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const hotelId = searchParams.get("hotelId");
@@ -112,16 +111,33 @@ const HotelDetails = () => {
   const [isFavourite, setIsFavourite] = useState(false);
 
   const hotelBooked = async () => {
+    if (!checkInDate) {
+      return toast.error("Please Pic A Date Before Booking");
+    }
+    if (!checkOutDate) {
+      return toast.error("Please Pic A Date Before Booking");
+    }
     try {
-      const data = await hotelBooking({ hotelId });
+      const data = await hotelBooking({
+        hotelId,
+        checkInDate,
+        checkOutDate,
+        rooms,
+      });
       if (data?.success) {
         toast.success(data?.message);
-      } else {
+      } else if (data?.message === "Unauthorized") {
         toast.error("Please Login Before Booking");
+      } else {
+        toast.error("Please Pic A Date Before Booking");
       }
     } catch (error) {
       console.log(error);
-      toast.error("Please Login Before Booking");
+      if (error?.message === "Unauthorized") {
+        toast.error("Please Login Before Booking");
+      } else {
+        toast.error("Something went wrong");
+      }
     }
   };
 
@@ -132,7 +148,7 @@ const HotelDetails = () => {
         setHotel(data?.data);
       }
     })();
-  }, []);
+  }, [hotelId]);
 
   return (
     <MasterLayout>
