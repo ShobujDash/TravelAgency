@@ -81,13 +81,13 @@ const Navbar = () => {
                     <IoBookmarks />
                     <p>My Booking</p>
                   </Link>
-                  <Link
+                  {/* <Link
                     to="/my-fevoruite"
                     className="flex gap-3 items-center hover:bg-blue-400 hover:text-white p-2 cursor-pointer"
                   >
                     <FaHeart />
                     <p>Saved</p>
-                  </Link>
+                  </Link> */}
                   {user && user?.isAdmin && (
                     <Link
                       to="/admin"

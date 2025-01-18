@@ -10,8 +10,25 @@ function cn(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-const DatePicker = () => {
+const DateCheckIn = ({ datePick }) => {
   const [date, setDate] = useState(null);
+
+  
+  const handleDateChange = (selectedDate) => {
+    if (selectedDate) {
+      // Ensure we only deal with the date part
+      const utcDate = new Date(
+        Date.UTC(
+          selectedDate.getFullYear(),
+          selectedDate.getMonth(),
+          selectedDate.getDate()
+        )
+      );
+      const formattedDate = utcDate.toISOString().split("T")[0];
+      setDate(utcDate);
+      datePick(formattedDate);
+    }
+  };
 
   return (
     <div className="h-full">
@@ -22,7 +39,7 @@ const DatePicker = () => {
             className="w-full h-full flex flex-col justify-normal items-start bg-cyan-50"
           >
             <h1 className="text-blue-300">Check In</h1>
-            <p>{date ? format(date, "PPP") : <span>5 jan 2024</span>}</p>
+            <p>{date ? format(date, "PPP") : <span>Pick a date</span>}</p>
             <p className="font-light text-sm">SaterDay</p>
           </Button>
         </PopoverTrigger>
@@ -30,7 +47,7 @@ const DatePicker = () => {
           <Calendar
             mode="single"
             selected={date}
-            onSelect={setDate}
+            onSelect={handleDateChange}
             initialFocus
           />
         </PopoverContent>
@@ -39,4 +56,4 @@ const DatePicker = () => {
   );
 };
 
-export default DatePicker;
+export default DateCheckIn;

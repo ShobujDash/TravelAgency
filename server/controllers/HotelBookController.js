@@ -10,10 +10,13 @@ const createHotelBooking = async (req, res) => {
       return res.status(500).json({ success: false, message: "Not Authenticated" });
     }
     const { hotelId} = req.body;
+    const { checkIn } = req.body;
+    const { checkOut } = req.body;
+    const { rooms } = req.body;
 
     // console.log(userId,hotelId)
 
-    const newBooking = new HotelBookModel({ hotelId, userId: req.headers.id });
+    const newBooking = new HotelBookModel({ hotelId, userId: req.headers.id ,checkIn,checkOut,rooms});
     const savedBooking = await newBooking.save();
 
     res.status(201).json({
@@ -29,7 +32,7 @@ const createHotelBooking = async (req, res) => {
 // Get all bookings
 const getAllHotelBookings = async (req, res) => {
   try {
-    const bookings = await HotelBookModel.find().populate("hotelId userId");
+    const bookings = await HotelBookModel.find().populate("hotelId userId").sort({createdAt:-1});
     res.status(200).json({ success: true, data: bookings });
   } catch (error) {
     res.status(500).json({ success: false, message: error.message });

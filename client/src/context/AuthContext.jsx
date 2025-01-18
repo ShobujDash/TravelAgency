@@ -21,7 +21,7 @@ const AuthContextProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    if (isLoggedIn) getProfile();
+     getProfile();
   }, [isLoggedIn,refresher]);
 
   useEffect(() => {

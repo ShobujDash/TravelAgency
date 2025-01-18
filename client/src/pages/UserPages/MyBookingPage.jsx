@@ -14,6 +14,7 @@ const MyBookingPage = () => {
     navigate(`/hotel/details?hotelId=${hotelId}&searchId=${searchId}`);
   };
 
+  console.log(bookedHotel)
 
    useEffect(() => {
      (async () => {
@@ -36,7 +37,7 @@ const MyBookingPage = () => {
               You haven't booked a hotel yet.
             </h1>
           ) : (
-            <div className="max-w-7xl mx-auto px-4 py-8">
+            <div className="max-w-7xl mx-auto px-4 py-2">
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 {bookedHotel.map((card) => (
                   <div
@@ -52,7 +53,7 @@ const MyBookingPage = () => {
                       />
                     </div>
                     {/* Details Section */}
-                    <div className="h-1/2 p-4 flex flex-col justify-between">
+                    <div className=" px-3 py-2 flex flex-col justify-between">
                       <div>
                         <h3 className="text-lg font-bold mb-2">
                           {card?.hotelId?.name}
@@ -60,11 +61,55 @@ const MyBookingPage = () => {
                         <p className="text-gray-600 text-sm">
                           {card?.hotelId?.place}
                         </p>
-                        <p className="text-gray-600 text-sm">
-                          {card?.hotelId?.description}
-                        </p>
-                        <p className="text-xl font-semibold text-green-600 my-3">
+                        <p className="text-xl font-semibold text-green-600 ">
                           {card?.hotelId?.pricePerRoom}$
+                        </p>
+                      </div>
+                      <div className="flex gap-1 justify-between items-center">
+                        <div>
+                          <p className="text-sm font-semibold text-green-600 my-1">
+                            Going Date
+                          </p>
+                          <p className="text-sm font-medium text-black my-1">
+                            {card?.checkIn}
+                          </p>
+                        </div>
+                        <div>
+                          <p className="text-sm font-semibold text-green-600 my-1">
+                            Return Date
+                          </p>
+                          <p className="text-sm font-medium text-black my-1">
+                            {card?.checkOut}
+                          </p>
+                        </div>
+                      </div>
+                      <div className="mb-4">
+                        <h2 className="text-sm font-semibold">
+                          Rooms & Guests
+                        </h2>
+                        <p className="text-sm text-gray-500">
+                          {card?.rooms.length} Room
+                          {card?.rooms.length > 1 ? "s" : ""},{" "}
+                          {card?.rooms.reduce(
+                            (total, room) =>
+                              total + room.adults + room.children,
+                            0
+                          )}{" "}
+                          Guests
+                        </p>
+                        <p className="text-sm text-gray-500">
+                          {card?.rooms.reduce(
+                            (total, room) => total + room.adults,
+                            0
+                          )}{" "}
+                          Adult
+                          {card?.rooms.length > 1 ? "s" : ""},{" "}
+                          {card?.rooms.reduce(
+                            (total, room) => total + room.children,
+                            0
+                          )}{" "}
+                          Child
+                          {card?.rooms.length > 1 ? "s" : ""},{" "}
                         </p>
                       </div>
                       <div className="flex gap-3 mb-5">
