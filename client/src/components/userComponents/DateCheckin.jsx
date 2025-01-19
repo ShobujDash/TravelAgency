@@ -40,7 +40,7 @@ const DateCheckIn = ({ datePick }) => {
           >
             <h1 className="text-blue-300">Check In</h1>
             <p>{date ? format(date, "PPP") : <span>Pick a date</span>}</p>
-            <p className="font-light text-sm"></p>
+           
           </Button>
         </PopoverTrigger>
         <PopoverContent className="w-auto p-0">
